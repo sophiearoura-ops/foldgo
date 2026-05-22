@@ -1,0 +1,867 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FoldGo 通勤折疊手機桌</title>
+
+<!-- 3D模型 -->
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
+
+<style>
+
+:root{
+  --navy:#10243e;
+  --brown:#b18b63;
+  --cream:#f7f1e8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  background:var(--cream);
+  color:var(--navy);
+  line-height:1.7;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+/* =========================
+   導覽列
+========================= */
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.nav-container{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.logo img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.logo span{
+  color:var(--brown);
+}
+
+.nav-links{
+  display:flex;
+  gap:22px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--navy);
+  font-weight:700;
+}
+
+/* =========================
+   Hero
+========================= */
+
+.hero{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 24px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:50px;
+  align-items:center;
+}
+
+.tag{
+  display:inline-block;
+  background:var(--navy);
+  color:white;
+  padding:8px 18px;
+  border-radius:999px;
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:90px;
+  line-height:1;
+  margin-bottom:10px;
+}
+
+.hero h2{
+  font-size:32px;
+  color:var(--brown);
+  margin-bottom:20px;
+}
+
+.hero p{
+  font-size:18px;
+  color:#42546b;
+}
+
+.hero-buttons{
+  margin-top:30px;
+  display:flex;
+  gap:14px;
+}
+
+.btn{
+  padding:14px 24px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:800;
+}
+
+.btn-primary{
+  background:var(--navy);
+  color:white;
+}
+
+.btn-secondary{
+  background:white;
+  color:var(--navy);
+  border:1px solid #ddd;
+}
+
+.product-card{
+  background:linear-gradient(135deg,#fff,#efe2d2);
+  border-radius:32px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+
+.hero-img{
+  width:100%;
+  border-radius:24px;
+}
+
+/* =========================
+   區塊
+========================= */
+
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:70px 24px;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.section-title p{
+  color:var(--brown);
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.section-title h2{
+  font-size:40px;
+}
+
+.content-box,
+.info-box,
+.feature-card{
+  background:white;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 12px 35px rgba(0,0,0,.08);
+}
+
+/* =========================
+   活動資訊
+========================= */
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+/* =========================
+   募集
+========================= */
+
+.promo-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:24px;
+}
+
+.promo-card{
+  background:var(--navy);
+  color:white;
+  border-radius:28px;
+  padding:30px;
+}
+
+.promo-card h3{
+  font-size:30px;
+  margin-bottom:14px;
+}
+
+.promo-card p{
+  color:rgba(255,255,255,.82);
+  margin-bottom:20px;
+}
+
+.promo-card ul{
+  padding-left:20px;
+  line-height:2;
+}
+
+.poster-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:28px;
+}
+
+.campaign-actions{
+  margin-top:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.campaign-actions span{
+  padding:10px 16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+/* =========================
+   3D模型
+========================= */
+
+model-viewer{
+  width:100%;
+  height:550px;
+  background:#f5efe7;
+  border-radius:28px;
+}
+
+.model-note{
+  text-align:center;
+  margin-top:14px;
+  color:#555;
+}
+
+/* =========================
+   特色
+========================= */
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.icon{
+  width:52px;
+  height:52px;
+  border-radius:18px;
+  background:var(--navy);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  margin-bottom:16px;
+}
+
+/* =========================
+   輪播
+========================= */
+
+.carousel{
+  overflow:hidden;
+  border-radius:32px;
+  background:white;
+  box-shadow:0 20px 40px rgba(0,0,0,.1);
+  position:relative;
+}
+
+.slides{
+  display:flex;
+  transition:.5s;
+}
+
+.slide{
+  min-width:100%;
+  padding:50px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  align-items:center;
+  background:linear-gradient(135deg,#fffaf2,#eadcc9);
+}
+
+.slide-visual{
+  height:260px;
+  border-radius:24px;
+  overflow:hidden;
+}
+
+.slide-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.carousel-buttons{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  display:flex;
+  gap:10px;
+}
+
+.carousel-buttons button{
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:50%;
+  background:var(--navy);
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* =========================
+   圖庫
+========================= */
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.gallery-grid img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:22px;
+}
+
+/* =========================
+   footer
+========================= */
+
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:40px 20px;
+  margin-top:50px;
+}
+
+footer p{
+  color:rgba(255,255,255,.75);
+  margin-top:8px;
+}
+
+/* =========================
+   手機版
+========================= */
+
+@media(max-width:900px){
+
+.hero,
+.promo-grid,
+.slide{
+  grid-template-columns:1fr;
+}
+
+.info-grid,
+.feature-grid,
+.gallery-grid{
+  grid-template-columns:repeat(2,1fr);
+}
+
+.nav-links{
+  display:none;
+}
+
+}
+
+@media(max-width:560px){
+
+.info-grid,
+.feature-grid,
+.gallery-grid{
+  grid-template-columns:1fr;
+}
+
+.hero h1{
+  font-size:64px;
+}
+
+.slide{
+  padding:30px;
+}
+
+model-viewer{
+  height:380px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     導覽列
+========================= -->
+
+<nav class="navbar">
+
+<div class="nav-container">
+
+<div class="logo">
+<img src="logo.jpg">
+Fold<span>Go</span>
+</div>
+
+<ul class="nav-links">
+<li><a href="#about">企劃緣起</a></li>
+<li><a href="#event">活動資訊</a></li>
+<li><a href="#promo">募集宣傳</a></li>
+<li><a href="#model">3D模型</a></li>
+<li><a href="#features">產品特色</a></li>
+<li><a href="#gallery">作品展示</a></li>
+</ul>
+
+</div>
+</nav>
+
+<!-- =========================
+     Hero
+========================= -->
+
+<header class="hero">
+
+<div>
+
+<span class="tag">
+TEAM 09 產品設計展
+</span>
+
+<h1>FoldGo</h1>
+
+<h2>
+通勤折疊手機桌
+</h2>
+
+<p>
+FoldGo 希望透過簡單、輕巧、可折疊的設計，
+改善通勤族在搭車與等待時的不便，
+讓通勤時光更舒適。
+</p>
+
+<div class="hero-buttons">
+
+<a href="#event" class="btn btn-primary">
+查看活動資訊
+</a>
+
+<a href="#features" class="btn btn-secondary">
+了解產品特色
+</a>
+
+</div>
+
+</div>
+
+<div class="product-card">
+
+<img src="product.jpg" class="hero-img">
+
+<p style="margin-top:18px;font-weight:800;">
+小空間，大便利，FoldGo 就 Go！
+</p>
+
+</div>
+
+</header>
+
+<!-- =========================
+     企劃緣起
+========================= -->
+
+<section id="about" class="section">
+
+<div class="section-title">
+<p>ABOUT</p>
+<h2>企劃緣起</h2>
+</div>
+
+<div class="content-box">
+
+<p>
+現代人通勤時經常需要查看訊息、導航、
+觀看影音內容，但搭乘大眾運輸時，
+常常因為手上拿著飲料或包包，
+導致使用手機不方便。
+</p>
+
+<br>
+
+<p>
+因此我們設計出 FoldGo 通勤折疊手機桌，
+透過手機支架、杯架與折疊設計，
+讓通勤與等待時間變得更便利。
+</p>
+
+</div>
+
+</section>
+
+<!-- =========================
+     活動資訊
+========================= -->
+
+<section id="event" class="section">
+
+<div class="section-title">
+<p>EVENT</p>
+<h2>活動資訊</h2>
+</div>
+
+<div class="info-grid">
+
+<div class="info-box">
+<h3>活動日期</h3>
+<p>2026 / 05 / 22</p>
+</div>
+
+<div class="info-box">
+<h3>活動時間</h3>
+<p>13:00 ～ 14:00</p>
+</div>
+
+<div class="info-box">
+<h3>活動地點</h3>
+<p>淡江大學工學館</p>
+</div>
+
+<div class="info-box">
+<h3>主辦單位</h3>
+<p>TEAM 09</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     募集宣傳
+========================= -->
+
+<section id="promo" class="section">
+
+<div class="section-title">
+<p>PROMOTION</p>
+<h2>募集與宣傳</h2>
+</div>
+
+<div class="promo-grid">
+
+<div class="promo-card">
+
+<h3>我們正在募集體驗者！</h3>
+
+<p>
+歡迎對產品設計與3D列印有興趣的同學，
+一起來參與 FoldGo 設計展。
+</p>
+
+<ul>
+<li>募集對象：學生、通勤族</li>
+<li>募集人數：20－30人</li>
+<li>活動內容：產品展示與問卷回饋</li>
+</ul>
+
+<div class="campaign-actions">
+<span>現場體驗</span>
+<span>填寫回饋</span>
+<span>參與討論</span>
+</div>
+
+</div>
+
+<img src="poster.jpg" class="poster-img">
+
+</div>
+
+</section>
+
+<!-- =========================
+     3D模型
+========================= -->
+
+<section id="model" class="section">
+
+<div class="section-title">
+<p>3D MODEL</p>
+<h2>FoldGo 3D模型展示</h2>
+</div>
+
+<div class="content-box">
+
+<model-viewer
+src="foldgo.glb"
+ios-src="foldgo.usdz"
+camera-controls
+auto-rotate
+ar
+shadow-intensity="1">
+</model-viewer>
+
+<p class="model-note">
+如果模型沒出現，請確認：
+<br>
+1. foldgo.glb 有放進資料夾
+<br>
+2. 使用 Live Server 開啟
+</p>
+
+</div>
+
+</section>
+
+<!-- =========================
+     產品特色
+========================= -->
+
+<section id="features" class="section">
+
+<div class="section-title">
+<p>FEATURES</p>
+<h2>產品特色</h2>
+</div>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+<div class="icon">☕</div>
+<h3>杯架設計</h3>
+<p>穩固放置飲品。</p>
+</div>
+
+<div class="feature-card">
+<div class="icon">📱</div>
+<h3>手機支架</h3>
+<p>追劇與閱讀更方便。</p>
+</div>
+
+<div class="feature-card">
+<div class="icon">📦</div>
+<h3>可折疊收納</h3>
+<p>輕巧不占空間。</p>
+</div>
+
+<div class="feature-card">
+<div class="icon">🌱</div>
+<h3>3D列印</h3>
+<p>PLA環保材質製作。</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     圖片輪播
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+<p>GALLERY</p>
+<h2>圖片輪播</h2>
+</div>
+
+<div class="carousel">
+
+<div class="slides" id="slides">
+
+<div class="slide">
+
+<div>
+<h3>產品模型</h3>
+<p>
+FoldGo 完整展示。
+</p>
+</div>
+
+<div class="slide-visual">
+<img src="product.jpg">
+</div>
+
+</div>
+
+<div class="slide">
+
+<div>
+<h3>活動海報</h3>
+<p>
+展示活動資訊與產品特色。
+</p>
+</div>
+
+<div class="slide-visual">
+<img src="poster.jpg">
+</div>
+
+</div>
+
+<div class="slide">
+
+<div>
+<h3>3D模型</h3>
+<p>
+3D模型預覽展示。
+</p>
+</div>
+
+<div class="slide-visual">
+<img src="model.jpg">
+</div>
+
+</div>
+
+</div>
+
+<div class="carousel-buttons">
+<button onclick="prevSlide()">‹</button>
+<button onclick="nextSlide()">›</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     圖庫
+========================= -->
+
+<section id="gallery" class="section">
+
+<div class="section-title">
+<p>SHOWCASE</p>
+<h2>成品展示</h2>
+</div>
+
+<div class="gallery-grid">
+
+<img src="logo.jpg">
+<img src="product.jpg">
+<img src="poster.jpg">
+<img src="model.jpg">
+
+</div>
+
+</section>
+
+<!-- =========================
+     footer
+========================= -->
+
+<footer>
+
+<h2>FoldGo 通勤折疊手機桌</h2>
+
+<p>
+TEAM 09｜
+蘇瑋婷・王靖涵・林姵妤・喻以雯・吳冠平・吳哲言
+</p>
+
+<p>
+一起來看看我們的設計，
+讓通勤時光更舒適！
+</p>
+
+</footer>
+
+<script>
+
+let currentSlide = 0;
+
+const slides =
+document.getElementById("slides");
+
+const totalSlides =
+document.querySelectorAll(".slide").length;
+
+function showSlide(index){
+
+if(index >= totalSlides){
+currentSlide = 0;
+}
+
+else if(index < 0){
+currentSlide = totalSlides - 1;
+}
+
+else{
+currentSlide = index;
+}
+
+slides.style.transform =
+`translateX(-${currentSlide * 100}%)`;
+
+}
+
+function nextSlide(){
+showSlide(currentSlide + 1);
+}
+
+function prevSlide(){
+showSlide(currentSlide - 1);
+}
+
+setInterval(nextSlide,4500);
+
+</script>
+
+</body>
+</html>
+```
